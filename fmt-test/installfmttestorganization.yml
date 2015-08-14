@@ -20,7 +20,7 @@
 
 
     - name: FMT Organization service install
-      command: sudo docker run -d -p 80:8080 --name organizationpoller -e "spring.profiles.active=amazon" selkirksystems/fmt-organizationpoller:0.0.3
+      command: sudo docker run -d -p 8080:8080 --name organizationpoller -e "spring.profiles.active=amazon" selkirksystems/fmt-organizationpoller:0.0.3
 
 
 
