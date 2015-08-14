@@ -20,7 +20,7 @@
 
 
     - name: FMT aggregator service install
-      command: sudo sh -c "sudo docker run --name aggregator -p 8080:8080 -e "spring.profiles.active=amazon-test" -d selkirksystems/fmt-aggregator:0.0.2"
+      command: sudo sh -c "sudo docker run --name aggregator -p 8080:8080 -e "spring.profiles.active=amazon-test" -d selkirksystems/fmt-aggregator:0.0.3"
 
 
 

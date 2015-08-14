@@ -20,7 +20,7 @@
 
 
     - name: FMT web service install
-      command: sudo docker run -d -p 80:8080 --name embcweb -e "spring.profiles.active=amazon" selkirksystems/embc-web:0.0.2
+      command: sudo docker run -d -p 80:8080 --name embcweb -e "spring.profiles.active=amazon" selkirksystems/embc-web:0.0.3
 
 
 
