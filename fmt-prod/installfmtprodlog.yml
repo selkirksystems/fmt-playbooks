@@ -20,7 +20,7 @@
 
 
     - name: FMT log service install
-      command:   sudo sh -c "sudo docker run -h $(ifconfig eth0 | grep 'inet addr:' | cut -d':' -f2 | awk '{print $1}') --name lognotepoller -p 8080:8080 -e "spring.profiles.active=amazon-prod" -d selkirksystems/fmt-lognotepoller:0.0.5"
+      command:   sudo sh -c "sudo docker run -h $(ifconfig eth0 | grep 'inet addr:' | cut -d':' -f2 | awk '{print $1}') --name lognotepoller -p 8080:8080 -e "spring.profiles.active=amazon-prod" -d selkirksystems/fmt-lognotepoller:0.0.6"
 
 
 
