@@ -4,22 +4,30 @@
 
    tasks:
 
-    - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
+    - name: Pull new image
+      command: sudo sh -c "sudo docker pull selkirksystems/fmt-web:0.0.7"
+      ignore_errors: True
+
+   
+    - name: Stop old container
+      command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
 
 
-    - command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
+    - name: Remove old container
+      command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi $(sudo docker images -q)"
+    - name: Remove old image
+      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-web:0.0.6"
       ignore_errors: True
       when: result|success
 
 
-    - name: FMT web service install
+    - name: Launch new container
       command: sudo sh -c "sudo docker run -d -p 443:8443 --name fmtweb -e "spring.profiles.active=amazon-acpt" selkirksystems/fmt-web:0.0.7"
 
 

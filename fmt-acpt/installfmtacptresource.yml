@@ -4,22 +4,29 @@
 
    tasks:
 
-    - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
+    - name: Pull new image
+      command: sudo sh -c "sudo docker pull selkirksystems/fmt-resourcepoller:0.0.5"
+      ignore_errors: True
+   
+    - name: Stop old container
+      command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
 
 
-    - command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
+    - name: Remove old container
+      command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi $(sudo docker images -q)"
+    - name: Remove old image
+      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-resourcepoller:0.0.4"
       ignore_errors: True
       when: result|success
 
 
-    - name: FMT resource service install
+    - name: Launch new container
       command: sudo sh -c  "sudo docker run -d -h $(ifconfig eth0 | grep 'inet addr:' | cut -d':' -f2 | awk '{print $1}') -p 8080:8080 --name resourcepoller -e "spring.profiles.active=amazon-acpt" selkirksystems/fmt-resourcepoller:0.0.5"
 
 
