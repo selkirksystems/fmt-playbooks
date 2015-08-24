@@ -3,11 +3,13 @@
    user: ubuntu
 
    tasks:
+   
+    - command: sudo sh -c "sudo docker pull selkirksystems/fmt-web:0.0.7"
+      ignore_errors: True
 
     - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
-
 
     - command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
