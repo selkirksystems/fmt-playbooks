@@ -4,6 +4,9 @@
 
    tasks:
 
+    - command: sudo sh -c "sudo docker pull selkirksystems/fmt-aggregator:0.0.4"
+      ignore_errors: True
+   
     - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
@@ -14,7 +17,7 @@
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi $(sudo docker images -q)"
+    - command: sudo sh -c "sudo docker rmi selkirksystems/fmt-aggregator:0.0.3"
       ignore_errors: True
       when: result|success
 
