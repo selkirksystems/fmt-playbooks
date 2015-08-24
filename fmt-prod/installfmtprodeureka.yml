@@ -4,25 +4,29 @@
 
    tasks:
 
-    - command: sudo sh -c "sudo docker pull netflixoss/eureka:1.1.147"
+    - name: Pull new image
+      command: sudo sh -c "sudo docker pull netflixoss/eureka:1.1.147"
       ignore_errors: True
    
-    - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
+    - name: Stop old container
+      command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
 
 
-    - command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
+    - Remove old container
+      command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi netflixoss/eureka:1.1.146"
+    - Remove old image
+      command: sudo sh -c "sudo docker rmi netflixoss/eureka:1.1.146"
       ignore_errors: True
       when: result|success
 
 
-    - name: FMT Eureka service install
+    - name: Launch new container
       command: sudo docker run -e "EUREKA_CLIENT_REGISTERWITHEUREKA=false" -e "EUREKA_CLIENT_FETCHREGISTRY=false"  --name eureka -p 8761:8080 -d netflixoss/eureka:1.1.147
 
 

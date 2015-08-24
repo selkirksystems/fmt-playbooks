@@ -14,13 +14,13 @@
       ignore_errors: True
 
 
-    - name: remove old container
+    - name: Remove old container
       command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
       when: result|success
 
 
-    - name: remove old image
+    - name: Remove old image
       command: sudo sh -c "sudo docker rmi selkirksystems/fmt-incidentpoller:0.0.3"
       ignore_errors: True
       when: result|success

@@ -4,25 +4,29 @@
 
    tasks:
 
-    - command: sudo sh -c "sudo docker pull selkirksystems/fmt-aggregator:0.0.4"
+    - name: Pull new image
+      command: sudo sh -c "sudo docker pull selkirksystems/fmt-aggregator:0.0.4"
       ignore_errors: True
    
-    - command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
+    - name: Stop old container
+      command: sudo sh -c "sudo docker stop $(sudo docker ps -a -q)"
       register: result
       ignore_errors: True
 
 
-    - command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
+    - name: Remove old container
+      command: sudo sh -c "sudo docker rm $(sudo docker ps -a -q)"
       ignore_errors: True
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi selkirksystems/fmt-aggregator:0.0.3"
+    - name: Remove old image
+      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-aggregator:0.0.3"
       ignore_errors: True
       when: result|success
 
 
-    - name: FMT aggregator service install
+    - name: Launch new container
       command: sudo sh -c "sudo docker run --name aggregator -p 8080:8080 -e "spring.profiles.active=amazon-prod" -d selkirksystems/fmt-aggregator:0.0.4"
 
 
