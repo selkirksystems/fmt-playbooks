@@ -16,7 +16,7 @@
       when: result|success
 
 
-    - command: sudo sh -c "sudo docker rmi $(sudo docker images -q)"
+    - command: sudo sh -c "sudo docker rmi selkirksystems/fmt-web:0.0.6"
       ignore_errors: True
       when: result|success
 
