@@ -1,11 +1,11 @@
 ---
  - hosts: all
-   user: ubuntu
+ 
 
    tasks:
    
     - name: Pull new image
-      command: sudo sh -c "sudo docker pull selkirksystems/fmt-resourcepoller:0.0.5"
+      command: sudo sh -c "sudo docker pull {{newimage}}"
       ignore_errors: True
 
     - name: Stop old container
