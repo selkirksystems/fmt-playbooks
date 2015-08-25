@@ -5,7 +5,7 @@
    tasks:
 
     - name: Pull new image
-      command: sudo sh -c "sudo docker pull selkirksystems/fmt-aggregator:0.0.4"
+      command: sudo sh -c "sudo docker pull {{newimage}}"
       ignore_errors: True
    
     - name: Stop old container
@@ -21,13 +21,13 @@
 
 
     - name: Remove old image
-      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-aggregator:0.0.3"
+      command: sudo sh -c "sudo docker rmi {{oldimage}}"
       ignore_errors: True
       when: result|success
 
 
     - name: Launch new container
-      command: sudo sh -c "sudo docker run --name aggregator -p 8080:8080 -e "spring.profiles.active=amazon-acpt" -d selkirksystems/fmt-aggregator:0.0.4"
+      command: sudo sh -c "sudo docker run --name aggregator -p {{ports}} -e "spring.profiles.active=amazon-acpt" -d {{newimage}}"
 
 
 

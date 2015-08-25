@@ -5,7 +5,7 @@
    tasks:
 
     - name: Pull new image
-      command: sudo sh -c "sudo docker pull selkirksystems/fmt-web:0.0.7"
+      command: sudo sh -c "sudo docker pull {{newimage}}"
       ignore_errors: True
    
     - name: Stop old container
@@ -21,13 +21,13 @@
 
 
     - name: Remove old image
-      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-web:0.0.6"
+      command: sudo sh -c "sudo docker rmi {{oldimage}}"
       ignore_errors: True
       when: result|success
 
 
     - name: Launch new container
-      command: sudo sh -c "sudo docker run -d -p 443:8443 --name fmtweb -e "spring.profiles.active=amazon-test" selkirksystems/fmt-web:0.0.7"
+      command: sudo sh -c "sudo docker run -d -p {{ports}} --name fmtweb -e "spring.profiles.active=amazon-test" {{newimage}}"
 
 
 

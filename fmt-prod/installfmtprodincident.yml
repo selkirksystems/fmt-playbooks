@@ -5,7 +5,7 @@
    tasks:
 
     - name: Pull new image
-      command: sudo sh -c "sudo docker pull selkirksystems/fmt-incidentpoller:0.0.4"
+      command: sudo sh -c "sudo docker pull {{newimage}}"
       ignore_errors: True
    
     - name: Stop old container
@@ -21,13 +21,13 @@
 
 
     - name: Remove old image
-      command: sudo sh -c "sudo docker rmi selkirksystems/fmt-incidentpoller:0.0.3"
+      command: sudo sh -c "sudo docker rmi {{oldimage}}"
       ignore_errors: True
       when: result|success
 
 
     - name: Launch new container
-      command: sudo sh -c "sudo docker run -h $(ifconfig eth0 | grep 'inet addr:' | cut -d':' -f2 | awk '{print $1}')  --name incidentpoller -p 8080:8080 -e "spring.profiles.active=amazon-prod" -d selkirksystems/fmt-incidentpoller:0.0.4"
+      command: sudo sh -c "sudo docker run -h $(ifconfig eth0 | grep 'inet addr:' | cut -d':' -f2 | awk '{print $1}')  --name incidentpoller -p {{ports}} -e "spring.profiles.active=amazon-prod" -d {{newimage}}"
 
 
 
